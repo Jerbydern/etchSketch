@@ -1,0 +1,14 @@
+* {
+    margin:0;
+}
+
+.mainBox {
+    display:flex
+
+}
+
+.square {
+    min-width:40px;
+    min-height:40px;
+    border: 1px black solid
+}

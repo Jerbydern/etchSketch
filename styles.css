@@ -17,3 +17,26 @@
 .moused {
     background-color:black;
 }
+
+/* Mobile Settings */
+.mobile #inst {
+    font-size:40px;
+    margin: 14px;
+}
+
+.mobile button {
+    max-width: 300px;
+    width:300px;
+    height:100px;
+    font-size:40px;
+}
+
+/* Computer Settings */
+button {
+    max-width:100px;
+    margin:10px;
+}
+
+#inst {
+    margin:4px
+}

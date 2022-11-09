@@ -7,6 +7,13 @@ let colNum=0
 let autoDrag = false
 let squares = document.querySelectorAll('.square')
 
+//Check if they're on mobile
+if ("ontouchstart" in document.body) {
+    autoDrag=true
+    document.querySelector('body').classList.add('mobile')
+    document.getElementById('inst').innerHTML = 'Tap to draw!'
+}
+
 //Grid size input
 let prevGrid
 let gridSize = 16

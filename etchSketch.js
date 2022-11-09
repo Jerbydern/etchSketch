@@ -1,6 +1,8 @@
+//Etch-a-Sketch Scripting
+
 let mainBox=document.querySelector('.mainBox')
 
-
+//Grid Creation
 squareID=0
 colNum=0
 
@@ -28,3 +30,43 @@ for (let i = 0; i<16 ; i++){
     colNum++
     makeColumn();
 }
+
+//Mouseover functionality
+let autoDrag = true
+let magicSquare = document.getElementById('square95')
+
+magicSquare.addEventListener("mouseover", () => magicSquare.classList.add('moused'))
+
+
+let squares = document.querySelectorAll('.square')
+
+function changeColor(square) {
+    square.classList.add('moused')
+}
+
+if (autoDrag === true){
+    squares.forEach(
+        (square) => {
+            square.addEventListener("mouseover", (event) => {
+                
+                    square.classList.add('moused')
+               
+            
+        })
+        }
+    )
+}
+else {
+    squares.forEach(
+        (square) => {
+            square.addEventListener("mouseover", (event) => {
+                if (event.shiftKey){
+                    square.classList.add('moused')
+                }
+               
+            
+        })
+        }
+    )
+}
+

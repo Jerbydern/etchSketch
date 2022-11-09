@@ -34,10 +34,12 @@ gridButt.addEventListener('click', (event) => {
 
 //Clearing Button
 clearButt.addEventListener('click', ()=> {
-    squares = document.querySelectorAll(".moused")
-    squares.forEach((square) => square.classList.remove("moused"))
-    
-})
+    squares = document.querySelectorAll(".square");
+    squares.forEach((square) => {
+        square.style.backgroundColor = 'white'
+        square.style.filter = 'brightness(0.9)'
+    })
+}) 
 
 
 //Grid Creation
@@ -113,13 +115,16 @@ function getRandomInt(max) {
   }
 
 function changeColor (element) {
+    //Assigns each square a random color
     let color = [getRandomInt(255),getRandomInt(255),getRandomInt(255)]
     element.style.backgroundColor ='rgb('+color[0]+','+color[1]+','+color[2]+')';
 
-    //My very belabored attempt at making it slowly descend to black each time the mouse runs over it
+    //This part makes it turn black over several iterations
     let style = getComputedStyle(element)
     let currBrightness = parseFloat(style.getPropertyValue('filter').replace(/\D/g, '')/10)
+
     if (currBrightness) {
+
         element.style.filter = 'brightness('+ (currBrightness - 0.1) + ')'
     }
     

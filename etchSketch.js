@@ -6,6 +6,7 @@ let squareID=0
 let colNum=0
 let autoDrag = false
 let squares = document.querySelectorAll('.square')
+let colorful = true
 
 //Check if they're on mobile
 if ("ontouchstart" in document.body) {
@@ -88,7 +89,7 @@ function squareSet(squares){
         squares.forEach(
             (square) => {
                 square.addEventListener("mouseover", (event) => {
-                        square.classList.add('moused')
+                        changeColor(square)
                 })
             }
         )
@@ -98,10 +99,29 @@ function squareSet(squares){
             (square) => {
                 square.addEventListener("mouseover", (event) => {
                     if (event.shiftKey){
-                        square.classList.add('moused')
+                        changeColor(square)
                     }
                 })
             }
         )
     }
+}
+
+//Colors
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+function changeColor (element) {
+    let color = [getRandomInt(255),getRandomInt(255),getRandomInt(255)]
+    element.style.backgroundColor ='rgb('+color[0]+','+color[1]+','+color[2]+')';
+
+    //My very belabored attempt at making it slowly descend to black each time the mouse runs over it
+    let style = getComputedStyle(element)
+    let currBrightness = parseFloat(style.getPropertyValue('filter').replace(/\D/g, '')/10)
+    if (currBrightness) {
+        element.style.filter = 'brightness('+ (currBrightness - 0.1) + ')'
+    }
+    
+
 }

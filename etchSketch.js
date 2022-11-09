@@ -1,10 +1,30 @@
 //Etch-a-Sketch Scripting
 
 let mainBox=document.querySelector('.mainBox')
+let squareID=0
+let colNum=0
+let autoDrag = false
+let squares = document.querySelectorAll('.square')
+
+//Grid size input
+let prevGrid
+let gridSize = 16
+let gridButt = document.getElementById('gridButt')
+gridButt.addEventListener('click', (event) => {
+        newGridSize = prompt('How big you want your grid, now?', gridSize)
+        if (newGridSize !== null) {
+            gridSize = newGridSize
+            while (mainBox.firstChild){
+                mainBox.removeChild(mainBox.firstChild)
+            }
+            makeGrid();
+        }
+    
+})
+
 
 //Grid Creation
-squareID=0
-colNum=0
+
 
 function makeColumn () {
     let newCol = document.createElement('div')
@@ -22,51 +42,47 @@ function makeSquare () {
     squareID ++
     currCol.appendChild(newSquare)
 }
-makeColumn();
-for (let i = 0; i<16 ; i++){
-    for (let i = 0; i<16 ; i++){
-        makeSquare()
+
+function makeGrid() {
+    squareID = 0
+    colNum = 0
+    for (let i = 0; i<gridSize ; i++){
+        makeColumn();
+        for (let i = 0; i<gridSize ; i++){
+            makeSquare()
+        }
+        colNum++
+        
     }
-    colNum++
-    makeColumn();
+    squareSet(document.querySelectorAll('.square'));
 }
+makeGrid()
 
 //Mouseover functionality
-let autoDrag = true
-let magicSquare = document.getElementById('square95')
-
-magicSquare.addEventListener("mouseover", () => magicSquare.classList.add('moused'))
-
-
-let squares = document.querySelectorAll('.square')
 
 function changeColor(square) {
     square.classList.add('moused')
 }
 
-if (autoDrag === true){
-    squares.forEach(
-        (square) => {
-            square.addEventListener("mouseover", (event) => {
-                
-                    square.classList.add('moused')
-               
-            
-        })
-        }
-    )
+function squareSet(squares){
+    if (autoDrag === true){
+        squares.forEach(
+            (square) => {
+                square.addEventListener("mouseover", (event) => {
+                        square.classList.add('moused')
+                })
+            }
+        )
+    }
+    else {
+        squares.forEach(
+            (square) => {
+                square.addEventListener("mouseover", (event) => {
+                    if (event.shiftKey){
+                        square.classList.add('moused')
+                    }
+                })
+            }
+        )
+    }
 }
-else {
-    squares.forEach(
-        (square) => {
-            square.addEventListener("mouseover", (event) => {
-                if (event.shiftKey){
-                    square.classList.add('moused')
-                }
-               
-            
-        })
-        }
-    )
-}
-

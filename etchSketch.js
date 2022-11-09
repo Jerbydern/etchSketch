@@ -1,6 +1,7 @@
 //Etch-a-Sketch Scripting
 
 let mainBox=document.querySelector('.mainBox')
+let clearButt = document.getElementById('clearButt')
 let squareID=0
 let colNum=0
 let autoDrag = false
@@ -11,7 +12,8 @@ let prevGrid
 let gridSize = 16
 let gridButt = document.getElementById('gridButt')
 gridButt.addEventListener('click', (event) => {
-        newGridSize = prompt('How big you want your grid, now?', gridSize)
+        newGridSize = prompt('How big you want your grid, now? (Maximum: 100)', gridSize)
+        if (newGridSize > 100){newGridSize = 100}
         if (newGridSize !== null) {
             gridSize = newGridSize
             while (mainBox.firstChild){
@@ -22,11 +24,19 @@ gridButt.addEventListener('click', (event) => {
     
 })
 
+//Clearing Button
+clearButt.addEventListener('click', ()=> {
+    squares = document.querySelectorAll(".moused")
+    squares.forEach((square) => square.classList.remove("moused"))
+    
+})
+
 
 //Grid Creation
 
 
 function makeColumn () {
+    //Makes a div to put a column of squares in
     let newCol = document.createElement('div')
     newCol.classList.add('column')
     newCol.setAttribute('id', 'column'+colNum)
@@ -35,6 +45,7 @@ function makeColumn () {
 }
 
 function makeSquare () {
+    //Makes the squares and assigns them IDs
     let currCol = document.querySelector("#column"+colNum)
     let newSquare = document.createElement('div')
     newSquare.classList.add('square')
@@ -44,6 +55,7 @@ function makeSquare () {
 }
 
 function makeGrid() {
+    //Creates a square grid
     squareID = 0
     colNum = 0
     for (let i = 0; i<gridSize ; i++){

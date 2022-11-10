@@ -11,6 +11,8 @@ let eraser = false
 let $ = document.querySelector.bind(document);
 
 
+
+
 //Check if they're on mobile
 if ("ontouchstart" in document.body) {
     autoDrag=true
@@ -59,6 +61,15 @@ drawButt.onclick = () =>{
 let darkButt = $('#darkButt')
 darkButt.onclick = () => {
     darkVar = !darkVar
+    if (!darkVar) {
+        $('#darkInd').dataset.toggle = 'off'
+        $('#darkInd').innerHTML = 'off'
+
+    }
+    else {
+        $('#darkInd').dataset.toggle = 'on'
+        $('#darkInd').innerHTML = 'on'
+    }
 }
 
 
@@ -109,28 +120,28 @@ function changeColor(square) {
     square.classList.add('moused')
 }
 
+let mouseEngage = false
+
 function squareSet(squares){
-    if (autoDrag === true){
         squares.forEach(
             (square) => {
-                square.addEventListener("mouseover", (event) => {
+                square.addEventListener("mousedown", (event) => {
                         squareChange(square)
+                        mouseEngage = true
                 })
-            }
-        )
-    }
-    else {
-        squares.forEach(
-            (square) => {
                 square.addEventListener("mouseover", (event) => {
-                    if (event.shiftKey){
+                    if (mouseEngage === true){
                         squareChange(square)
                     }
+
+                    
                 })
-            }
-        )
-    }
-}
+                square.addEventListener("mouseup", (event) => {
+                    mouseEngage = false
+                })
+
+            })
+        }
 
 //Colors
 function getRandomInt(max) {

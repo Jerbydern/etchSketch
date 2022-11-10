@@ -16,9 +16,14 @@
 }
 
 
-.moused {
-    background-color:black;
+[data-toggle="on"] {
+    color:green
 }
+[data-toggle="off"] {
+    color:red
+}
+
+
 
 /* Mobile Settings */
 .mobile #inst {
@@ -28,9 +33,9 @@
 
 .mobile button {
     max-width: 300px;
-    width:300px;
+    width:150px;
     height:100px;
-    font-size:40px;
+    font-size:30px;
 }
 
 /* Computer Settings */

@@ -10,8 +10,7 @@
 .square {
     min-width:40px;
     min-height:40px;
-    background-color:white;
-    filter: brightness(0.9);
+    background-color:rgb(244, 244, 244);
     border: 1px black solid
     
 }

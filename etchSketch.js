@@ -6,7 +6,10 @@ let squareID=0
 let colNum=0
 let autoDrag = false
 let squares = document.querySelectorAll('.square')
-let colorful = true
+let darkVar = true
+let eraser = false
+let $ = document.querySelector.bind(document);
+
 
 //Check if they're on mobile
 if ("ontouchstart" in document.body) {
@@ -36,10 +39,29 @@ gridButt.addEventListener('click', (event) => {
 clearButt.addEventListener('click', ()=> {
     squares = document.querySelectorAll(".square");
     squares.forEach((square) => {
-        square.style.backgroundColor = 'white'
-        square.style.filter = 'brightness(0.9)'
+        square.style.backgroundColor = 'rgb(244, 244, 244)'
+        square.style.filter = 'brightness(1)'
     })
 }) 
+
+//Eraser Button
+let eraseButt = $('#eraseButt')
+eraseButt.onclick = () => {
+    eraser = true
+    
+}
+//Draw Button
+let drawButt = $('#drawButt')
+drawButt.onclick = () =>{
+    eraser = false
+}
+//Darken Button
+let darkButt = $('#darkButt')
+darkButt.onclick = () => {
+    darkVar = !darkVar
+}
+
+
 
 
 //Grid Creation
@@ -60,6 +82,7 @@ function makeSquare () {
     let newSquare = document.createElement('div')
     newSquare.classList.add('square')
     newSquare.setAttribute('id', "square"+squareID)
+    newSquare.setAttribute('data-brightness', '1')
     squareID ++
     currCol.appendChild(newSquare)
 }
@@ -91,7 +114,7 @@ function squareSet(squares){
         squares.forEach(
             (square) => {
                 square.addEventListener("mouseover", (event) => {
-                        changeColor(square)
+                        squareChange(square)
                 })
             }
         )
@@ -101,7 +124,7 @@ function squareSet(squares){
             (square) => {
                 square.addEventListener("mouseover", (event) => {
                     if (event.shiftKey){
-                        changeColor(square)
+                        squareChange(square)
                     }
                 })
             }
@@ -114,19 +137,37 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
 
+function squareChange(element) {
+    if (eraser) {
+        erase(element)
+        return
+    }
+    changeColor(element)
+    if (darkVar) {
+        darken(element)
+    }
+}
+
+
 function changeColor (element) {
     //Assigns each square a random color
     let color = [getRandomInt(255),getRandomInt(255),getRandomInt(255)]
     element.style.backgroundColor ='rgb('+color[0]+','+color[1]+','+color[2]+')';
-
+}
     //This part makes it turn black over several iterations
+function darken(element) {
     let style = getComputedStyle(element)
-    let currBrightness = parseFloat(style.getPropertyValue('filter').replace(/\D/g, '')/10)
+    let currBrightness = element.dataset.brightness
 
     if (currBrightness) {
-
-        element.style.filter = 'brightness('+ (currBrightness - 0.1) + ')'
+        element.dataset.brightness -= 0.1
+        element.style.filter = 'brightness('+ currBrightness  + ')'
+        
     }
-    
-
 }
+
+function erase (element) {
+    element.style.backgroundColor = 'rgb(244, 244, 244)'
+    element.style.filter = 'brightness(1)'
+}
+

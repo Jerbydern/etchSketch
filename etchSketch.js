@@ -43,6 +43,7 @@ clearButt.addEventListener('click', ()=> {
     squares.forEach((square) => {
         square.style.backgroundColor = 'rgb(244, 244, 244)'
         square.style.filter = 'brightness(1)'
+        square.dataset.brightness = '1'
     })
 }) 
 
@@ -180,5 +181,6 @@ function darken(element) {
 function erase (element) {
     element.style.backgroundColor = 'rgb(244, 244, 244)'
     element.style.filter = 'brightness(1)'
+    element.dataset.brightness = '1'
 }
 
